@@ -7,6 +7,9 @@
     "react-dom": "^16.13.1",
     "react-scripts": "0.9.x"
   },
+  "repository": {
+    "url": "https://github.com/CHRISUPING/react-graphql-apollo"
+  },
   "devDependencies": {},
   "scripts": {
     "start": "react-scripts start",
