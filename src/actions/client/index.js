@@ -4,7 +4,8 @@ import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
-const GITHUB_BASE_URL = "https://48p1r2roz4.sse.codesandbox.io";
+// const GITHUB_BASE_URL = "https://48p1r2roz4.sse.codesandbox.io";
+const GITHUB_BASE_URL = "https://rickandmortyapi.com/graphql/";
 
 const httpLink = new HttpLink({
   uri: GITHUB_BASE_URL,

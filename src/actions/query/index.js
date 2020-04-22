@@ -7,3 +7,15 @@ export const GET_CURRENT_USER = gql`
     }
   }
 `;
+
+export const GET_CHARACTERS = gql`
+  query getCharacters {
+    characters {
+      results {
+        id
+        name
+        image
+      }
+    }
+  }
+`;
