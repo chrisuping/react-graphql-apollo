@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { ApolloProvider } from "react-apollo";
 import * as serviceWorker from "./serviceWorker";
 import App from "./app/index";
+import "antd/dist/antd.css";
 
 import client from "./actions/client";
 
