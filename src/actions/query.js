@@ -21,3 +21,13 @@ export const GET_CHARACTERS = gql`
     }
   }
 `;
+export const GET_TODOS = gql`
+  {
+    todos @client {
+      id
+      completed
+      text
+    }
+    visibilityFilter @client
+  }
+`;

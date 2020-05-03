@@ -28,13 +28,24 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 const link = ApolloLink.from([errorLink, httpLink]);
 
 const cache = new InMemoryCache();
-
+//{ id: 0, completed: false, text: "Initial data" }
+cache.writeData({
+  data: {
+    todos: [],
+    visibilityFilter: "SHOW_ALL",
+    networkStatus: {
+      __typename: "NetworkStatus",
+      isConnected: false,
+    },
+  },
+});
 const client = new ApolloClient({
   link,
   cache,
   resolvers: {
     Mutation: {
       toggleTodo: (_root, variables, { cache, getCacheKey }) => {
+        console.log(cache);
         const id = getCacheKey({ __typename: "TodoItem", id: variables.id });
         const fragment = gql`
           fragment completeTodo on TodoItem {
