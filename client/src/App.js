@@ -1,94 +1,15 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import { useMutation, useApolloClient } from "@apollo/react-hooks";
-import gql from "graphql-tag";
-import List from "./List";
+import React from "react";
+import { useQuery } from "@apollo/react-hooks";
 
-const GET_USERS = gql`
-  {
-    users {
-      id
-      login
-      avatar_url
-    }
-  }
-`;
+import "./index.css";
+import Section from "./components/Section";
+import { GET_USERS } from "./actions/query";
 
-export const UPDATE = gql`
-  mutation update($Input: Input) {
-    Update(nput: $Input) {
-      id
-      login
-      avatar_url
-    }
-  }
-`;
-
-function App({ data }) {
-  const client = useApolloClient();
-  const [datalist, setDataList] = useState(data);
-  const [isError, setIsError] = useState(false);
-  const [updateUser, updateUserResult] = useMutation(UPDATE);
-  const handleAdd = () => {
-    const temp = {
-      users: [
-        ...datalist.users,
-        {
-          id: String(Math.random() * 100).slice(0, 2),
-          login: "fff",
-          avatar_url: "sss",
-          __typename: "User",
-        },
-      ],
-    };
-    client.writeQuery({
-      query: GET_USERS,
-      data: { ...temp },
-    });
-    setDataList({ ...temp });
-  };
-  useEffect(() => {
-    if (updateUserResult.error) {
-      setIsError(true);
-    }
-  }, [updateUserResult]);
-
-  const handleDelete = (e, id) => {
-    setDataList({ users: datalist.users.filter((item) => item.id !== id) });
-  };
-  const handleMutation = () => {
-    updateUser({
-      variables: {
-        ...datalist,
-      },
-    });
-  };
-  if (!isError) {
-    return (
-      <div>
-        <button
-          onClick={() => {
-            handleAdd();
-          }}
-        >
-          Add info
-        </button>
-        <button
-          onClick={() => {
-            handleMutation();
-          }}
-        >
-          Update
-        </button>
-        <List data={datalist} handleDelete={handleDelete} />
-      </div>
-    );
-  }
-  return (
-    <div>
-      <h1>Error</h1>
-    </div>
-  );
-}
+const App = () => {
+  const { loading, error, data } = useQuery(GET_USERS);
+  if (error) return <h1>Something went wrong!</h1>;
+  if (loading) return <h1>Loading...</h1>;
+  return <Section data={data} />;
+};
 
 export default App;

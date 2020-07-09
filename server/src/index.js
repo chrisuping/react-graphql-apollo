@@ -4,9 +4,10 @@ const axios = require("axios");
 const typeDefs = gql`
   type User {
     id: ID
-    login: String
-    avatar_url: String
     name: String
+    phone: String
+    email: String
+    address: String
   }
 
   type Query {
@@ -18,9 +19,10 @@ const mockData = {
   data: [
     {
       id: "001",
-      login: "test_login",
-      avatar_url: "test_url",
-      name: "test_name",
+      name: "Alan",
+      phone: "15656231896",
+      email: "alan@email.com",
+      address: "Shanghai",
     },
   ],
 };
@@ -32,11 +34,12 @@ const resolvers = {
         // const users = await axios.get("https://api.github.com/users");
         const users = { ...mockData };
         console.log(users);
-        return users.data.map(({ id, login, avatar_url, name }) => ({
+        return users.data.map(({ id, name, phone, email, address }) => ({
           id,
-          login,
-          avatar_url,
           name,
+          phone,
+          email,
+          address,
         }));
       } catch (error) {
         throw error;

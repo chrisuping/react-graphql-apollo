@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 
 const List = ({ data, handleDelete }) => {
   return (
@@ -9,9 +8,10 @@ const List = ({ data, handleDelete }) => {
           {data.users.map((user) => (
             <tr key={user.id}>
               <td>
-                <span>{user.id}</span>&nbsp;
-                <span>{user.login}</span>&nbsp;
-                <span>{user.avatar_url}</span>&nbsp;
+                <span>{user.name}</span>&nbsp;
+                <span>{user.phone}</span>&nbsp;
+                <span>{user.email}</span>&nbsp;
+                <span>{user.address}</span>&nbsp;
                 <button
                   onClick={(e) => {
                     handleDelete(e, user.id);
