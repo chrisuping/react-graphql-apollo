@@ -4,7 +4,8 @@ import ApolloClient, { InMemoryCache } from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 
 import "./index.css";
-import App from "./App";
+import "antd/dist/antd.css";
+import App from "./App.jsx";
 import * as serviceWorker from "./serviceWorker";
 
 const cache = new InMemoryCache({
