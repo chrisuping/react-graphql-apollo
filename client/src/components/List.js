@@ -1,8 +1,14 @@
 import React from "react";
 import { Button } from "antd";
+import { useApolloClient } from "@apollo/react-hooks";
+import { GET_USERS } from "../actions/query";
 import ListTitle from "./common/ListTitle";
 
-const List = ({ data, handleDelete }) => {
+const List = ({ handleDelete }) => {
+  const client = useApolloClient();
+  const data = client.readQuery({
+    query: GET_USERS,
+  });
   const dataSource = [...data.users];
   dataSource.map((item) => {
     return {

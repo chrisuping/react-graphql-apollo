@@ -3,6 +3,7 @@ import List from "./List";
 import { Button } from "antd";
 
 const AddSection = ({ datalist, handleAdd, handleDelete }) => {
+  console.log(datalist);
   return (
     <>
       <List data={datalist} handleDelete={handleDelete} />

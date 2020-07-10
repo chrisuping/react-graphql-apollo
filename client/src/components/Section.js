@@ -8,27 +8,11 @@ import AddSection from "./AddSection";
 function Section({ data }) {
   const client = useApolloClient();
   const [datalist, setDataList] = useState(data);
+  const [isEdit, setIsEdit] = useState(false);
   const [isError, setIsError] = useState(false);
   const [updateUser, updateUserResult] = useMutation(UPDATE_USERS);
   const handleAdd = () => {
-    const temp = {
-      users: [
-        ...datalist.users,
-        {
-          id: String(Math.random() * 100).slice(0, 2),
-          name: "Tom",
-          phone: "15625896301",
-          email: "tom@email.com",
-          address: "Beijing",
-          __typename: "User",
-        },
-      ],
-    };
-    client.writeQuery({
-      query: GET_USERS,
-      data: { ...temp },
-    });
-    setDataList({ ...temp });
+    setIsEdit(true);
   };
   useEffect(() => {
     if (updateUserResult.error) {
@@ -37,7 +21,16 @@ function Section({ data }) {
   }, [updateUserResult]);
 
   const handleDelete = (e, id) => {
-    setDataList({ users: datalist.users.filter((item) => item.id !== id) });
+    const data2 = client.readQuery({
+      query: GET_USERS,
+    });
+    const temp = {
+      users: [...data2.users.filter((item) => item.id !== id)],
+    };
+    client.writeQuery({
+      query: GET_USERS,
+      data: { ...temp },
+    });
   };
   const handleMutation = () => {
     updateUser({
@@ -47,21 +40,17 @@ function Section({ data }) {
     });
   };
 
-  if (!isError) {
-    return (
-      <>
+  return (
+    <>
+      {!isEdit ? (
         <AddSection
           datalist={datalist}
           handleAdd={handleAdd}
           handleDelete={handleDelete}
         />
-        {/* <EditSection /> */}
-      </>
-    );
-  }
-  return (
-    <>
-      <h1>Error</h1>
+      ) : (
+        <EditSection datalist={datalist} setIsEdit={setIsEdit} />
+      )}
     </>
   );
 }
