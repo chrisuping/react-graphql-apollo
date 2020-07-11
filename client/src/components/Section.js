@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useMutation, useApolloClient } from "@apollo/react-hooks";
 import { GET_USERS } from "../actions/query";
 import { UPDATE_USERS } from "../actions/mutation";
-import EditSection from "./EditSection";
 import AddSection from "./AddSection";
 
 function Section({ data }) {
@@ -47,21 +46,13 @@ function Section({ data }) {
     });
   };
 
-  if (!isError) {
-    return (
-      <>
-        <AddSection
-          datalist={datalist}
-          handleAdd={handleAdd}
-          handleDelete={handleDelete}
-        />
-        {/* <EditSection /> */}
-      </>
-    );
-  }
   return (
     <>
-      <h1>Error</h1>
+      <AddSection
+        datalist={datalist}
+        handleAdd={handleAdd}
+        handleDelete={handleDelete}
+      />
     </>
   );
 }

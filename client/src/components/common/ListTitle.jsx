@@ -6,8 +6,12 @@ const ListTitle = () => {
     <>
       <thead className="ant-table-thead">
         <tr>
-          {CONTACT_TABLE_TITLE.map((item) => {
-            return <th className="ant-table-cell">{item.title}</th>;
+          {CONTACT_TABLE_TITLE.map((item, index) => {
+            return (
+              <th key={index} className="ant-table-cell">
+                {item.title}
+              </th>
+            );
           })}
         </tr>
       </thead>

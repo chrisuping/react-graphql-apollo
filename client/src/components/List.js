@@ -3,13 +3,6 @@ import { Button } from "antd";
 import ListTitle from "./common/ListTitle";
 
 const List = ({ data, handleDelete }) => {
-  const dataSource = [...data.users];
-  dataSource.map((item) => {
-    return {
-      ...item,
-      key: item.id,
-    };
-  });
   return (
     <>
       <div className="ant-table">
