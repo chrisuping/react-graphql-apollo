@@ -5,9 +5,13 @@ import { UPDATE_USERS } from "../actions/mutation";
 import EditSection from "./EditSection";
 import AddSection from "./AddSection";
 
-function Section({ data }) {
+function Section() {
   const client = useApolloClient();
-  const [datalist, setDataList] = useState(data);
+  const datalist = client.readQuery({
+    query: GET_USERS,
+  });
+  // const [datalist, setDataList] = useState(data);
+  console.log(datalist);
   const [isEdit, setIsEdit] = useState(false);
   const [isError, setIsError] = useState(false);
   const [updateUser, updateUserResult] = useMutation(UPDATE_USERS);
@@ -21,11 +25,8 @@ function Section({ data }) {
   }, [updateUserResult]);
 
   const handleDelete = (e, id) => {
-    const data2 = client.readQuery({
-      query: GET_USERS,
-    });
     const temp = {
-      users: [...data2.users.filter((item) => item.id !== id)],
+      users: [...datalist.users.filter((item) => item.id !== id)],
     };
     client.writeQuery({
       query: GET_USERS,
@@ -42,15 +43,12 @@ function Section({ data }) {
 
   return (
     <>
-      {!isEdit ? (
-        <AddSection
-          datalist={datalist}
-          handleAdd={handleAdd}
-          handleDelete={handleDelete}
-        />
-      ) : (
-        <EditSection datalist={datalist} setIsEdit={setIsEdit} />
-      )}
+      <AddSection
+        datalist={datalist}
+        handleAdd={handleAdd}
+        handleDelete={handleDelete}
+      />
+      <EditSection datalist={datalist} setIsEdit={setIsEdit} />
     </>
   );
 }

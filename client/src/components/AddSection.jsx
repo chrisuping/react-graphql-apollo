@@ -6,8 +6,8 @@ const AddSection = ({ datalist, handleAdd, handleDelete }) => {
   console.log(datalist);
   return (
     <>
-      <List data={datalist} handleDelete={handleDelete} />
-      <Button
+      <List datalist={datalist} handleDelete={handleDelete} />
+      {/* <Button
         style={{ marginTop: "16px" }}
         type="primary"
         onClick={() => {
@@ -15,7 +15,7 @@ const AddSection = ({ datalist, handleAdd, handleDelete }) => {
         }}
       >
         Add
-      </Button>
+      </Button> */}
     </>
   );
 };

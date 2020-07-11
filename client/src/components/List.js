@@ -4,18 +4,7 @@ import { useApolloClient } from "@apollo/react-hooks";
 import { GET_USERS } from "../actions/query";
 import ListTitle from "./common/ListTitle";
 
-const List = ({ handleDelete }) => {
-  const client = useApolloClient();
-  const data = client.readQuery({
-    query: GET_USERS,
-  });
-  const dataSource = [...data.users];
-  dataSource.map((item) => {
-    return {
-      ...item,
-      key: item.id,
-    };
-  });
+const List = ({ datalist, handleDelete }) => {
   return (
     <>
       <div className="ant-table">
@@ -24,7 +13,7 @@ const List = ({ handleDelete }) => {
             <table>
               <ListTitle />
               <tbody className="ant-table-tbody">
-                {data.users.map((user) => (
+                {datalist.users.map((user) => (
                   <tr key={user.id}>
                     <td className="ant-table-cell">{user.name}</td>
                     <td className="ant-table-cell">{user.phone}</td>
